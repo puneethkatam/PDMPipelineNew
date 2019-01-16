@@ -50,7 +50,7 @@ pipeline {
             }
           }
        }
-       stage('Approve for Merge?'){
+       /*stage('Approve for Merge?'){
 		steps {
 	
 		/*input message: 'Proceed with Merge'
@@ -71,10 +71,10 @@ pipeline {
 		                   echo 'Exporting application from Dev environment : ' + env.PEGA_DEV
 				                   sh "./gradlew performOperation -Dprpc.service.util.action=export -Dpega.rest.server.url=${env.PEGA_DEV}/PRRestService -Dpega.rest.username=puneeth_export -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp"
 							  }
-							               }
+							               }*/
 
 
-       stage('Merge branch'){
+      /* stage('Merge branch'){
        /* when {
           environment name: "PERFORM_MERGE", value: "true"
         }*/
@@ -94,7 +94,7 @@ pipeline {
                 }
             }
           }
-        }
+        }*/
 
 
         /*stage('Publish to Artifactory') {
@@ -105,7 +105,7 @@ pipeline {
             }
         }
 
-        stage('Regression Tests') {
+        /*stage('Regression Tests') {
 
             steps {
                 echo 'Run regression tests'
@@ -119,7 +119,7 @@ pipeline {
               echo 'Fetching application archive from Artifactory'
               sh  "./gradlew fetchFromArtifactory -PartifactoryUser=pega_admin -PartifactoryPassword=P@ssw0rd_pega --debug"
             }
-        }
+        }*/
 
         /*stage('Create restore point') {
 
@@ -128,17 +128,20 @@ pipeline {
                 sh "./gradlew createRestorePoint -PtargetURL=${PEGA_PROD} -PpegaUsername=${IMS_USER} -PpegaPassword=${IMS_PASSWORD}"
             }
         }*/
-        stage('Deploy to SIT') {
+        /*stage('Deploy to SIT') {
 
             steps {
               echo 'Deploying to production : ' + env.PEGA_PROD
 
               sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
             }
-        }
+        }*/
   }
 
   post {
+  always {
+          junit '**/reports/junit/*.xml'
+	        }
     failure {
       mail (
           subject: "${JOB_NAME} ${BUILD_NUMBER} merging branch  has failed",
