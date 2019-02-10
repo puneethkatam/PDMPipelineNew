@@ -20,7 +20,7 @@ pipeline {
 
     stages {
 
-        stage('Check for merge conflicts'){
+        /*stage('Check for merge conflicts'){
             steps {
                 echo ('Clear workspace')
                 dir ('build/export') {
@@ -49,6 +49,10 @@ pipeline {
               }
             }
           }
+       }*/
+       stage('Import'){
+         
+sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
        }
 							  }
 
