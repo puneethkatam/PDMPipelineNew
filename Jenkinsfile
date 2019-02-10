@@ -51,8 +51,10 @@ pipeline {
           }
        }*/
        stage('Import'){
+       steps{
          
-sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
+                             sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
+       }
        }
 							  }
 
