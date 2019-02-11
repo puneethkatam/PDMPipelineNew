@@ -62,10 +62,10 @@ pipeline {
 							  }
 
   post {
-  always {
+//  always {
 	  //junit allowEmptyResults: true, testResults: '**/*.xml'
-
-	        }
+//
+//	        }
     failure {
       mail (
           subject: "${JOB_NAME} ${BUILD_NUMBER} merging branch  has failed",
