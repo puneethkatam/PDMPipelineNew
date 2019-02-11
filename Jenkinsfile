@@ -53,7 +53,10 @@ pipeline {
        stage('Import'){
        steps{
          
-                             sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
+                             echo 'Fetching application archive from Artifactory'
+			                   sh  "./gradlew fetchFromArtifactory -PartifactoryUser='pega_admin' -PartifactoryPassword='P@ssw0rd_pega'"
+
+			     sh "./gradlew performOperation -Dprpc.service.util.action=import -Dpega.rest.server.url=${env.PEGA_PROD}/PRRestService -Dpega.rest.username=puneeth_export  -Dpega.rest.password=rules -Duser.temp.dir=${WORKSPACE}/tmp --debug"
        }
        }
 							  }
